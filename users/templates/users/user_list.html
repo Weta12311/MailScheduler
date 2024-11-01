@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <h4 class="header center black-text" style="font-weight: bold;">
+                {{ title }}
+            </h4>
+            <br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12 m10 offset-m1">
+            <ul class="collection" style="border: none;">
+                {% for object in object_list %}
+                <li class="collection-item avatar">
+                    <span class="title purple-text text-darken-3" style="font-weight: 500;">
+                                {{ object.email }}
+                            </span>
+                    <p class="grey-text text-darken-2">{{ object.first_name }}</p>
+                    <p class="grey-text text-darken-2">{{ object.last_name }}</p>
+                    <div class="secondary-content">
+                        <button data-pk="{{ object.pk }}"
+                                class="btn-small waves-effect waves-light {% if object.is_active %}green darken-2{% else %}grey lighten-1{% endif %} toggle-active-btn">
+                            {% if object.is_active %}
+                            Активен{% else %}Заблокирован{% endif %}
+                        </button>
+                    </div>
+                </li>
+                {% empty %}
+                <h5 class="header center orange-text text-darken-2">Нет зарегестрированных пользователей</h5>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <br>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const buttons = document.querySelectorAll('.toggle-active-btn');
+        buttons.forEach(button => {
+            button.addEventListener('click', function () {
+                const pk = this.getAttribute('data-pk');
+                const isActive = this.classList.contains('green');
+                fetch(`{% url 'users:user_toggle_active' 0 %}`.replace('0', pk), {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({'is_active': !isActive})
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            if (isActive) {
+                                this.classList.remove('green', 'darken-2');
+                                this.classList.add('grey', 'lighten-1');
+                                this.innerHTML = 'Заблокирован';
+                            } else {
+                                this.classList.remove('grey', 'lighten-1');
+                                this.classList.add('green', 'darken-2');
+                                this.innerHTML = 'Активен';
+                            }
+                        }
+                    });
+            });
+        });
+    });
+</script>
+{% endblock %}

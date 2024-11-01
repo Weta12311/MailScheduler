@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <title>Планировщик Рассылок</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .wrapper {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+{% include 'mailing/includes/inc_nav_menu.html' %}
+<div class="wrapper">
+    {% block content %}
+    {% endblock %}
+</div>
+{% include 'mailing/includes/inc_footer.html' %}
+<script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+<script src="{% static 'js/materialize.js' %}"></script>
+<script src="{% static 'js/init.js' %}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+            M.AutoInit();
+
+            {% if messages %}
+                {% for message in messages %}
+                    M.toast({html: '{{ message }}', classes: 'teal'});
+                {% endfor %}
+            {% endif %}
+
+            {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        M.toast({html: '{{ error }}', classes: 'red darken-2'});
+                    {% endfor %}
+                {% endfor %}
+
+                {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                        M.toast({html: '{{ error }}', classes: 'red darken-2'});
+                    {% endfor %}
+                {% endif %}
+            {% endif %}
+        });
+</script>
+</body>
+</html>

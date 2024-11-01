@@ -1,0 +1,52 @@
+{% load perm_tag %}
+<nav class="black" role="navigation">
+    <div class="nav-wrapper container">
+        {% if user.is_authenticated %}
+            <ul class="right hide-on-med-and-down">
+                <li>
+                    <form method="post" action="{% url 'users:logout' %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-flat"
+                                style="padding-left: 15px; height: 64px; line-height: 64px; color: white">
+                            <i class="material-icons">logout</i>
+                        </button>
+                    </form>
+                </li>
+            </ul>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="{% url 'users:profile' user.id %}">Мой профиль</a></li>
+            </ul>
+            {% if user|manager_superuser_only %}
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="{% url 'users:users_list' %}">Пользователи</a></li>
+                </ul>
+            {% endif %}
+        {% else %}
+            <ul class="right hide-on-med-and-down">
+                <li><a href="{% url 'users:login' %}"><i class="material-icons">login</i></a></li>
+            </ul>
+        {% endif %}
+        <ul class="right hide-on-med-and-down">
+            <li><a href="{% url 'mailing:mailing_attempt_list' %}">Отчет</a></li>
+        </ul>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="{% url 'mailing:mailing_list' %}">Рассылки</a></li>
+        </ul>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="{% url 'mailing:message_list' %}">Сообщения</a></li>
+        </ul>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="{% url 'mailing:client_list' %}">Клиенты</a></li>
+        </ul>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="{% url 'blog:article_list' %}">Блог</a></li>
+        </ul>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="{% url 'mailing:home' %}">Главная</a></li>
+        </ul>
+        <ul id="nav-mobile" class="sidenav">
+            <li><a href="#">Главная</a></li>
+        </ul>
+        <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+</nav>

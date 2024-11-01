@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="header"><h2 class="header center black-text">{{ title }}</h2></div>
+        <div class="row">
+            <div class="col s12 m4">
+                <div class="card-panel teal lighten-2 white-text center hoverable">
+                    <h5>Всего рассылок</h5>
+                    <h3>{{ total_mailings }}</h3>
+                </div>
+            </div>
+            <div class="col s12 m4">
+                <div class="card-panel green lighten-2 white-text center hoverable">
+                    <h5>Активные рассылки</h5>
+                    <h3>{{ active_mailings }}</h3>
+                </div>
+            </div>
+            <div class="col s12 m4">
+                <div class="card-panel orange lighten-2 white-text center hoverable">
+                    <h5>Уникальные клиенты</h5>
+                    <h3>{{ unique_clients }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

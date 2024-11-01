@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <h4 class="header center black-text" style="font-weight: bold;">
+                {{ title }}
+            </h4>
+            <br>
+        </div>
+    </div>
+    <div class="row">
+        {% for article in articles_list %}
+        <div class="col s12 m6 l4">
+            <div class="card medium z-depth-3 hoverable">
+                <div class="card-image">
+                    <img src="{{ article.preview.url }}" alt="{{ article.title }}"
+                         style="height: 200px; object-fit: cover;">
+                    <span class="card-title">{{ article.title }}</span>
+                </div>
+                <div class="card-content grey lighten-5">
+                    <p>
+                        <strong>Дата публикации:</strong> {{ article.created_at|date:"d.m.Y" }}<br>
+                        <strong>Краткое содержание:</strong> {{ article.summary|truncatechars:100 }}
+                    </p>
+                </div>
+                <div class="card-action" style="margin-top: 15px;">
+                    <div class="row" style="margin-bottom: 0;">
+                        <div class="col s6">
+                            <a href="{% url 'blog:article_detail' article.pk %}"
+                               class="btn-small blue">
+                                Читать
+                            </a>
+                        </div>
+                        <div class="col s6 right-align">
+                                    <span class="grey-text text-darken-1" style="line-height: 36px;">
+                                        {{ article.views }} просмотров
+                                    </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <h5 class="header center black-text">Нет доступных записей блога</h5>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

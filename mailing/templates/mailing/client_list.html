@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="header center">
+        <h4 class="header center black-text" style="font-weight: bold;">
+            {{ title }}
+        </h4>
+    </div>
+    <div class="row">
+        <div class="col">
+            <ul class="collection" style="border: none;">
+                {% for object in object_list %}
+                <li class="col-4">
+                    <span class="title black-text" style="font-weight: 500;">
+                                {{ object.full_name }}
+                            </span>
+                    <p class="grey-text text-darken-2">{{ object.email }}</p>
+                    <p>{{ object.comment }}</p>
+                <div class="secondary-content">
+                    <a href="{% url 'mailing:client_detail' object.pk %}"
+                       class="waves-effect waves-light btn-small blue darken-2">
+                        Подробнее
+                    </a>
+                    <a href="{% url 'mailing:client_edit' object.id %}"
+                       class="waves-effect waves-light btn-small orange darken-2">
+                        Редактировать
+                    </a>
+                    <a href="{% url 'mailing:client_delete' object.pk %}"
+                       class="waves-effect waves-light btn-small red darken-2">
+                        Удалить
+                    </a>
+                </div>
+                </li>
+                {% empty %}
+                <h5 class="header center purple-text">Нет добавленных клиентов</h5>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="row center">
+        <a class="btn btn green"
+           href="{% url 'mailing:client_create' %}">
+            Добавить клиента
+        </a>
+    </div>
+    <br>
+</div>
+{% endblock %}

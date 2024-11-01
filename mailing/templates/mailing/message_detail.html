@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h4 class="header center black-text text-darken-2" style="font-weight: bold;">Информация о сообщении рассылки</h4>
+        <br>
+        <div class="card grey lighten-4 z-depth-2">
+            <div class="card-content">
+                <h5 class="purple-text">Тема:</h5>
+                <p class="black-text">{{ object.title }}</p>
+                <h5 class="purple-text">Текст:</h5>
+                <p class="black-text">{{ object.body }}</p>
+            </div>
+            <div class="card-action">
+                <a href="{% url 'mailing:message_edit' object.pk %}"
+                   class="waves-effect waves-light btn-small orange darken-2">
+                    Редактировать
+                </a>
+                <a href="{% url 'mailing:message_delete' object.pk %}"
+                   class="waves-effect waves-light btn-small red darken-2">
+                    Удалить
+                </a>
+                <a href="{% url 'mailing:message_list' %}"
+                   class="waves-effect waves-light btn-small blue darken-2">
+                    К списку сообщений
+                </a>
+            </div>
+        </div>
+    </div>
+    <br>
+{% endblock %}

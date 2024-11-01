@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <h4 class="header center black-text" style="font-weight: bold;">
+            {{ title }}
+        </h4>
+        <br>
+        <div class="row">
+            {% for attempt in mailingattempt_list %}
+                <div class="col s8 offset-s2">
+                    <div class="card z-depth-3 hoverable">
+                        <div class="card-content grey lighten-5">
+                            <span class="card-title purple-text" style="font-weight: 500;">
+                                Попытка для рассылки №{{ attempt.mailing.id }}
+                            </span>
+                            <p>
+                                <strong>Дата и время попытки:</strong> {{ attempt.attempt_time|date:"d.m.Y H:i" }}<br>
+                                <strong>Статус:</strong> {{ attempt.get_status_display }}<br>
+                                {% if attempt.server_response %}
+                                    <strong>Ответ сервера:</strong> {{ attempt.server_response }}
+                                {% else %}
+                                    <br>
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <h5 class="header center purple-text">Нет выполненных рассылок</h5>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

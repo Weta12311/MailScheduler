@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <h4 class="header center black-text">Подтверждение удаления сообщения</h4>
+        <br>
+        <div class="card grey lighten-4 z-depth-2">
+            <div class="card-content">
+                <p>Вы действительно хотите удалить сообщение <strong>{{ object.title }}</strong>?</p>
+            </div>
+            <div class="card-action">
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn red darken-2">Удалить</button>
+                    <a href="{% url 'mailing:message_list' %}" class="btn blue darken-2">Отмена</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br>
+{% endblock %}

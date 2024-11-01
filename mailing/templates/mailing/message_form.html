@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <h4 class="header center black-text">{{ title }}</h4>
+        <br>
+        <div class="row">
+            <form method="post" class="col s12 m6 offset-m3">
+                {% csrf_token %}
+                <div class="input-field">
+                    {{ form.title.label_tag }}
+                    {{ form.title }}
+                </div>
+                <div class="input-field">
+                    {{ form.body.label_tag }}
+                    {{ form.body }}
+                </div>
+                <div class="row center">
+                    <button type="submit" class="btn green">
+                         {{ button_text }}
+                    </button>
+                    <a href="{% url 'mailing:message_list' %}" class="btn blue">
+                        Отменить
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br>
+{% endblock %}

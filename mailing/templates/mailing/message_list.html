@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <h4 class="header center black-text text-darken-2" style="font-weight: bold;">
+                {{ title }}
+            </h4>
+            <br>
+        </div>
+    </div>
+    <div class="row">
+        {% for object in object_list %}
+        <div class="col-6">
+            <div class="card z-depth-3 hoverable">
+                <div class="card-content grey lighten-5">
+                            <span class="card-title purple-text text-darken-2" style="font-weight: 500;">
+                                {{ object.title }}
+                            </span>
+                    <p>{{ object.body|truncatewords:20 }}</p>
+                </div>
+                <div class="card-action">
+                    <a href="{% url 'mailing:message_detail' object.pk %}"
+                       class="btn-small waves-effect waves-light blue darken-2">
+                        Подробнее
+                    </a>
+                    <a href="{% url 'mailing:message_edit' object.pk %}"
+                       class="btn-small waves-effect waves-light orange darken-2">
+                        Редактировать
+                    </a>
+                    <a href="{% url 'mailing:message_delete' object.pk %}"
+                       class="btn-small waves-effect waves-light red darken-2">
+                        Удалить
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <h5 class="header center purple-text text-darken-2">Нет созданных сообщений</h5>
+        {% endfor %}
+    </div>
+    <div class="row center">
+        <a class="btn waves-light green"
+           href="{% url 'mailing:message_create' %}">
+            Добавить сообщение
+        </a>
+    </div>
+</div>
+{% endblock %}

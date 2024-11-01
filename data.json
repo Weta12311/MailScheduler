@@ -1,0 +1,105 @@
+[
+  {
+    "model": "mailing.client",
+    "pk": 19,
+    "fields": {
+      "email": "margenshteynv@gmail.com",
+      "full_name": "Маргенштейн Виталий Михайлович",
+      "comment": "Готов получать рассылку каждый день",
+      "owner": 1
+    }
+  },
+  {
+    "model": "mailing.client",
+    "pk": 20,
+    "fields": {
+      "email": "test@test.com",
+      "full_name": "Тест Тестов",
+      "comment": "Готов получать рассылку раз в месяц",
+      "owner": 1
+    }
+  },
+  {
+    "model": "mailing.client",
+    "pk": 21,
+    "fields": {
+      "email": "ivanov@test.com",
+      "full_name": "Иванов Иван Иванович",
+      "comment": "Готов получать рассылку раз в неделю",
+      "owner": 1
+    }
+  },
+  {
+    "model": "mailing.message",
+    "pk": 14,
+    "fields": {
+      "title": "Тест сообщения",
+      "body": "Тест",
+      "owner": 1
+    }
+  },
+  {
+    "model": "mailing.mailing",
+    "pk": 44,
+    "fields": {
+      "is_active": false,
+      "created_at": "2024-10-28T15:24:59.994",
+      "send_time": "2024-11-01T18:00:00",
+      "frequency": "D",
+      "status": "CR",
+      "message": 14,
+      "owner": 1,
+      "clients": [
+        21
+      ]
+    }
+  },
+  {
+    "model": "mailing.mailing",
+    "pk": 45,
+    "fields": {
+      "is_active": false,
+      "created_at": "2024-10-28T15:25:28.938",
+      "send_time": "2024-11-01T18:00:00",
+      "frequency": "W",
+      "status": "CR",
+      "message": 14,
+      "owner": 1,
+      "clients": [
+        21,
+        19
+      ]
+    }
+  },
+  {
+    "model": "mailing.mailing",
+    "pk": 46,
+    "fields": {
+      "is_active": false,
+      "created_at": "2024-10-28T15:25:51.848",
+      "send_time": "2024-11-01T18:00:00",
+      "frequency": "M",
+      "status": "CR",
+      "message": 14,
+      "owner": 1,
+      "clients": [
+        21,
+        19,
+        20
+      ]
+    }
+  },
+  {
+    "model": "blog.article",
+    "pk": 1,
+    "fields": {
+      "title": "Test",
+      "summary": "Тест статьи",
+      "content": "Тест",
+      "preview": "blog/test.jpg",
+      "views": 3,
+      "created_at": "2024-10-24T23:21:47.060",
+      "is_published": true
+    }
+  }
+]

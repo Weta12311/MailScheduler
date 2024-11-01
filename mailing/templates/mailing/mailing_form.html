@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <h4 class="header center black-text">{{ title }}</h4>
+        <br>
+        <div class="row">
+            <form method="post" class="col s12 m6 offset-m3">
+                {% csrf_token %}
+                <div class="input-field">
+                    {{ form.send_time }}
+                    <label for="{{ form.send_time.id_for_label }}" class="active">{{ form.send_time.label }}</label>
+                </div>
+                <div class="input-field">
+                    {{ form.frequency }}
+                    <label for="{{ form.frequency.id_for_label }}">{{ form.frequency.label }}</label>
+                </div>
+                <div class="input-field">
+                    {{ form.message }}
+                    <label for="{{ form.message.id_for_label }}">{{ form.message.label }}</label>
+                </div>
+                <div class="input-field">
+                    {{ form.clients }}
+                    <label for="{{ form.clients.id_for_label }}">{{ form.clients.label }}</label>
+                </div>
+                <div class="row center">
+                    <button type="submit" class="btn green">
+                        {{ button_text }}
+                    </button>
+                    <a href="{% url 'mailing:mailing_list' %}" class="btn blue">
+                         Отменить
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br>
+{% endblock %}

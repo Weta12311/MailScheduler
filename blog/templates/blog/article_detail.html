@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <h4 class="header center orange-text text-darken-2" style="font-weight: bold;">
+                {{ object.title }}
+            </h4>
+            <br>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m10 offset-m1 l8 offset-l2">
+                <div class="card z-depth-3 hoverable">
+                    <div class="card-image">
+                        <img src="{{ object.preview.url }}" alt="{{ object.title }}" style="height: 300px; object-fit: cover;">
+                    </div>
+                    <div class="card-content grey lighten-5">
+                        <p><strong>Дата публикации:</strong> {{ object.created_at|date:"d.m.Y" }}</p>
+                        <p>{{ object.content|safe }}</p>
+                    </div>
+                    <div class="card-action right-align">
+                        <a href="{% url 'blog:article_list' %}" class="btn-small waves-effect waves-light orange darken-2">
+                            <i class="material-icons left">arrow_back</i>Вернуться к статьям
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

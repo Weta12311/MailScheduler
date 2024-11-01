@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load perm_tag %}
+{% block content %}
+    <div class="container">
+        <h4 class="header center black-text">Информация о рассылке</h4>
+        <br>
+        <div class="card grey lighten-4 z-depth-2">
+            <div class="card-content">
+                <h5 class="purple-text">Дата и время создания рассылки:</h5>
+                <p class="black-text">{{ object.created_at|date:"d.m.Y H:i" }}</p>
+
+                <h5 class="purple-text">Дата и время отправки рассылки:</h5>
+                <p class="black-text">{{ object.send_time|date:"d.m.Y H:i" }}</p>
+
+                <h5 class="purple-text">Периодичность:</h5>
+                <p class="black-text">{{ object.get_frequency_display }}</p>
+
+                <h5 class="purple-text">Сообщение для рассылки:</h5>
+                <p class="black-text">
+                    <strong>{{ object.message.title }}</strong><br>
+                    {{ object.message.body|linebreaksbr }}
+                </p>
+
+                <h5 class="purple-text">Клиенты:</h5>
+                {% if object.clients.all %}
+                    <ul class="black-text">
+                        {% for client in object.clients.all %}
+                            <li>{{ client.full_name }} ({{ client.email }})</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="grey-black">Нет выбранных клиентов для этой рассылки.</p>
+                {% endif %}
+            </div>
+            <div class="card-action">
+                <div class="row">
+                    <div class="col s8">
+                        {% if user|regular_user_only %}
+                        <a href="{% url 'mailing:mailing_edit' object.pk %}"
+                           class="btn orange">
+                             Редактировать
+                        </a>
+                        <a href="{% url 'mailing:mailing_delete' object.pk %}"
+                           class="btn red">
+                            Удалить
+                        </a>
+                        {% endif %}
+                        <a href="{% url 'mailing:mailing_list' %}"
+                           class="btn blue">
+                            К списку рассылок
+                        </a>
+                    </div>
+                    <div class="col s4 right-align">
+                        <button data-pk="{{ object.pk }}"
+                                class="btn-small waves-effect waves-light {% if object.is_active %}green darken-2{% else %}grey lighten-1{% endif %} toggle-active-btn">
+                            <i class="material-icons left">toggle_on</i>{% if object.is_active %}Активна{% else %}Неактивна{% endif %}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const button = document.querySelector('.toggle-active-btn');
+            if (button) {
+                button.addEventListener('click', function () {
+                    const pk = this.getAttribute('data-pk');
+                    const isActive = this.classList.contains('green');
+                    fetch(`{% url 'mailing:mailing_toggle_active' 0 %}`.replace('0', pk), {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        body: JSON.stringify({ 'is_active': !isActive })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            if (isActive) {
+                                this.classList.remove('green', 'darken-2');
+                                this.classList.add('grey', 'lighten-1');
+                                this.innerHTML = 'Неактивна';
+                            } else {
+                                this.classList.remove('grey', 'lighten-1');
+                                this.classList.add('green', 'darken-2');
+                                this.innerHTML = 'Активна';
+                            }
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+{% endblock %}

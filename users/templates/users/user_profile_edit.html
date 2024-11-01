@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <h4 class="header center black-text">Редактировать профиль</h4>
+        <br>
+        <div class="row">
+            <form method="post" class="col s12 m6 offset-m3">
+                {% csrf_token %}
+                <div class="input-field">
+                    {{ form.first_name.label_tag }}
+                    {{ form.first_name }}
+                </div>
+                <div class="input-field">
+                    {{ form.last_name.label_tag }}
+                    {{ form.last_name }}
+                </div>
+                <div class="row center">
+                    <button type="submit" class="btn green ">
+                        Сохранить
+                    </button>
+                    <a href="{% url 'users:profile' user.id %}" class="btn blue">
+                        Отменить
+                    </a>
+                    <a href="{% url 'users:profile_delete' %}" class="btn red">
+                        Удалить профиль
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br>
+{% endblock %}

@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "mailscheduler"
+version = "0.1.0"
+description = ""
+authors = ["pecheritsa <pecheritsa.roman@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^5.1.1"
+psycopg2 = "^2.9.9"
+python-dotenv = "^1.0.1"
+pillow = "^10.4.0"
+black = "^24.8.0"
+django-apscheduler = "^0.6.2"
+redis = "^5.2.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <h4 class="header center black-text">Подтверждение удаления рассылки</h4>
+        <br>
+        <div class="card grey lighten-4 z-depth-2">
+            <div class="card-content">
+                <p>Вы действительно хотите удалить рассылку с ID <strong>{{ object.id }}</strong>?</p>
+                <p>Дата и время первой отправки: <strong>{{ object.send_time|date:"d.m.Y H:i" }}</strong></p>
+                <p>Сообщение: <strong>{{ object.message.title }}</strong></p>
+            </div>
+            <div class="card-action">
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn red">Удалить</button>
+                    <a href="{% url 'mailing:mailing_list' %}" class="btn blue">Отмена</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br>
+{% endblock %}
